@@ -386,6 +386,19 @@
       .password-error.visible {
         display: block;
       }
+      .helper-text {
+        font-size: 0.8rem;
+        color: #6c757d;
+        margin-top: 0.25rem;
+        font-weight: normal;
+      }
+      .helper-text code {
+        background: #e9ecef;
+        padding: 0.125rem 0.375rem;
+        border-radius: 3px;
+        font-family: 'Courier New', monospace;
+        font-size: 0.75rem;
+      }
     </style>
     <script>
       const PASSWORD_HASH = '6f2749c9c79b371a4cb4fd1bc894507d4416350c757e540a22a90e771f23bd07';
@@ -734,6 +747,7 @@
                   placeholder="e.g., d0df6f50-9c32-4c68-9ab2-4f7c9f3b6c91"
                   required
                 />
+                <div class="helper-text">Taken from <code>/api/v3/players/me</code>, <code>info.uuid</code> field</div>
               </div>
               <div class="form-group">
                 <label for="locale">Locale</label>
@@ -758,6 +772,7 @@
                 placeholder="Enter segment IDs separated by commas, e.g., 123, 456, 789"
                 required
               ></textarea>
+              <div class="helper-text">Taken from <code>/api/v3/banners</code>, <code>smartico_segment_id</code> field</div>
             </div>
 
             <div class="button-group">
