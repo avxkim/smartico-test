@@ -11,8 +11,8 @@
         padding: 0;
       }
       body {
-        font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Arial,
-          sans-serif;
+        font-family:
+          -apple-system, BlinkMacSystemFont, "Segoe UI", Arial, sans-serif;
         margin: 0;
         padding: 2rem;
         background: linear-gradient(135deg, #10b981 0%, #059669 100%);
@@ -61,7 +61,7 @@
         gap: 0.5rem;
       }
       .section-title::before {
-        content: '';
+        content: "";
         width: 4px;
         height: 1.5rem;
         background: linear-gradient(135deg, #10b981 0%, #059669 100%);
@@ -88,7 +88,7 @@
         gap: 0.5rem;
       }
       .required::after {
-        content: '*';
+        content: "*";
         color: #dc3545;
         margin-left: 0.25rem;
       }
@@ -110,7 +110,7 @@
       textarea {
         min-height: 100px;
         resize: vertical;
-        font-family: 'Courier New', monospace;
+        font-family: "Courier New", monospace;
       }
       .button-group {
         display: flex;
@@ -259,7 +259,7 @@
         background: #f8f9fa;
         border-radius: 4px;
         margin-bottom: 0.5rem;
-        font-family: 'Courier New', monospace;
+        font-family: "Courier New", monospace;
         font-size: 0.9rem;
       }
       .segment-item:last-child {
@@ -287,7 +287,7 @@
         padding: 1.5rem;
         border-radius: 6px;
         overflow-x: auto;
-        font-family: 'Courier New', monospace;
+        font-family: "Courier New", monospace;
         font-size: 0.875rem;
         line-height: 1.6;
         max-height: 500px;
@@ -336,7 +336,7 @@
         background: #f8f9fa;
         padding: 0.75rem;
         border-radius: 4px;
-        font-family: 'Courier New', monospace;
+        font-family: "Courier New", monospace;
         font-size: 0.875rem;
         overflow-x: auto;
       }
@@ -350,234 +350,234 @@
         background: #e9ecef;
         padding: 0.125rem 0.375rem;
         border-radius: 3px;
-        font-family: 'Courier New', monospace;
+        font-family: "Courier New", monospace;
         font-size: 0.75rem;
       }
     </style>
     <script>
-      if (sessionStorage.getItem('auth') !== 'true') {
-        window.location.href = 'login.html';
+      if (sessionStorage.getItem("auth") !== "true") {
+        window.location.href = "login.html";
       }
     </script>
     <script src="https://libs.smartico.ai/smartico.js" defer></script>
     <script defer>
-      document.addEventListener('DOMContentLoaded', async () => {
-        const form = document.getElementById('test-form')
-        const labelKeyInput = document.getElementById('label-key')
-        const brandKeyInput = document.getElementById('brand-key')
-        const uuidInput = document.getElementById('uuid')
-        const localeInput = document.getElementById('locale')
-        const segmentsInput = document.getElementById('segments')
-        const statusEl = document.getElementById('status')
-        const resultsContainer = document.getElementById('results')
-        const jsonOutput = document.getElementById('json-output')
-        const copyBtn = document.getElementById('copy-btn')
-        const submitBtn = document.getElementById('submit-btn')
-        const resetBtn = document.getElementById('reset-btn')
+      document.addEventListener("DOMContentLoaded", async () => {
+        const form = document.getElementById("test-form");
+        const labelKeyInput = document.getElementById("label-key");
+        const brandKeyInput = document.getElementById("brand-key");
+        const uuidInput = document.getElementById("uuid");
+        const localeInput = document.getElementById("locale");
+        const segmentsInput = document.getElementById("segments");
+        const statusEl = document.getElementById("status");
+        const resultsContainer = document.getElementById("results");
+        const jsonOutput = document.getElementById("json-output");
+        const copyBtn = document.getElementById("copy-btn");
+        const submitBtn = document.getElementById("submit-btn");
+        const resetBtn = document.getElementById("reset-btn");
 
-        labelKeyInput.value = 'e3ce8b29-2a61-4074-b195-e9cc536e0052-4'
-        brandKeyInput.value = 'c4384c25'
+        labelKeyInput.value = "622e2ced-b84d-4b4d-be84-ad0ad893431f-4";
+        brandKeyInput.value = "33210353";
 
         const waitForSmartico = () =>
-          new Promise(resolve => {
+          new Promise((resolve) => {
             if (window._smartico?.init) {
-              resolve(window._smartico)
+              resolve(window._smartico);
 
-              return
+              return;
             }
 
             const interval = setInterval(() => {
               if (window._smartico?.init) {
-                clearInterval(interval)
-                resolve(window._smartico)
+                clearInterval(interval);
+                resolve(window._smartico);
               }
-            }, 100)
-          })
+            }, 100);
+          });
 
         const waitForSmarticoApi = () =>
-          new Promise(resolve => {
-            const api = window._smartico?.api
+          new Promise((resolve) => {
+            const api = window._smartico?.api;
 
             if (api?.checkSegmentListMatch) {
-              resolve(api)
+              resolve(api);
 
-              return
+              return;
             }
 
             const interval = setInterval(() => {
-              const currentApi = window._smartico?.api
+              const currentApi = window._smartico?.api;
 
               if (currentApi?.checkSegmentListMatch) {
-                clearInterval(interval)
-                resolve(currentApi)
+                clearInterval(interval);
+                resolve(currentApi);
               }
-            }, 150)
-          })
+            }, 150);
+          });
 
-        await waitForSmartico()
+        await waitForSmartico();
 
         const showStatus = (type, message) => {
-          statusEl.className = `status visible ${type}`
+          statusEl.className = `status visible ${type}`;
           statusEl.innerHTML =
-            type === 'loading'
+            type === "loading"
               ? `<div class="spinner"></div>${message}`
-              : message
-        }
+              : message;
+        };
 
         const hideStatus = () => {
-          statusEl.className = 'status'
-        }
+          statusEl.className = "status";
+        };
 
         const displayResults = (rawResult, segments, backendPayload) => {
-          const matchedSegments = rawResult.filter(r => r.is_matching)
-          const unmatchedSegments = rawResult.filter(r => !r.is_matching)
+          const matchedSegments = rawResult.filter((r) => r.is_matching);
+          const unmatchedSegments = rawResult.filter((r) => !r.is_matching);
 
-          document.getElementById('total-count').textContent = rawResult.length
-          document.getElementById('matched-count').textContent =
-            matchedSegments.length
-          document.getElementById('unmatched-count').textContent =
-            unmatchedSegments.length
-          document.getElementById('backend-payload').textContent =
-            backendPayload
+          document.getElementById("total-count").textContent = rawResult.length;
+          document.getElementById("matched-count").textContent =
+            matchedSegments.length;
+          document.getElementById("unmatched-count").textContent =
+            unmatchedSegments.length;
+          document.getElementById("backend-payload").textContent =
+            backendPayload;
 
-          const matchedList = document.getElementById('matched-list')
-          const unmatchedList = document.getElementById('unmatched-list')
+          const matchedList = document.getElementById("matched-list");
+          const unmatchedList = document.getElementById("unmatched-list");
 
           matchedList.innerHTML = matchedSegments.length
             ? matchedSegments
                 .map(
-                  s =>
-                    `<div class="segment-item">Segment ID: ${s.segment_id} <span class="badge success">✓ MATCH</span></div>`
+                  (s) =>
+                    `<div class="segment-item">Segment ID: ${s.segment_id} <span class="badge success">✓ MATCH</span></div>`,
                 )
-                .join('')
-            : '<div class="segment-item" style="opacity: 0.6;">No matched segments</div>'
+                .join("")
+            : '<div class="segment-item" style="opacity: 0.6;">No matched segments</div>';
 
           unmatchedList.innerHTML = unmatchedSegments.length
             ? unmatchedSegments
                 .map(
-                  s =>
-                    `<div class="segment-item">Segment ID: ${s.segment_id} <span class="badge danger">✗ NO MATCH</span></div>`
+                  (s) =>
+                    `<div class="segment-item">Segment ID: ${s.segment_id} <span class="badge danger">✗ NO MATCH</span></div>`,
                 )
-                .join('')
-            : '<div class="segment-item" style="opacity: 0.6;">No unmatched segments</div>'
+                .join("")
+            : '<div class="segment-item" style="opacity: 0.6;">No unmatched segments</div>';
 
-          jsonOutput.innerHTML = `<pre>${JSON.stringify(rawResult, null, 2)}</pre>`
-          resultsContainer.classList.add('visible')
-        }
+          jsonOutput.innerHTML = `<pre>${JSON.stringify(rawResult, null, 2)}</pre>`;
+          resultsContainer.classList.add("visible");
+        };
 
-        form.addEventListener('submit', async event => {
-          event.preventDefault()
+        form.addEventListener("submit", async (event) => {
+          event.preventDefault();
 
-          const labelKey = labelKeyInput.value.trim()
-          const brandKey = brandKeyInput.value.trim()
-          const uuid = uuidInput.value.trim()
-          const locale = localeInput.value.trim() || 'en'
+          const labelKey = labelKeyInput.value.trim();
+          const brandKey = brandKeyInput.value.trim();
+          const uuid = uuidInput.value.trim();
+          const locale = localeInput.value.trim() || "en";
           const segments = segmentsInput.value
-            .split(',')
-            .map(s => s.trim())
+            .split(",")
+            .map((s) => s.trim())
             .filter(Boolean)
-            .map(s => Number(s))
-            .filter(n => Number.isFinite(n) && n > 0)
+            .map((s) => Number(s))
+            .filter((n) => Number.isFinite(n) && n > 0);
 
           if (!labelKey) {
-            showStatus('error', '⚠️ Label Key is required')
-            setTimeout(hideStatus, 3000)
+            showStatus("error", "⚠️ Label Key is required");
+            setTimeout(hideStatus, 3000);
 
-            return
+            return;
           }
 
           if (!brandKey) {
-            showStatus('error', '⚠️ Brand Key is required')
-            setTimeout(hideStatus, 3000)
+            showStatus("error", "⚠️ Brand Key is required");
+            setTimeout(hideStatus, 3000);
 
-            return
+            return;
           }
 
           if (!uuid) {
-            showStatus('error', '⚠️ UUID is required')
-            setTimeout(hideStatus, 3000)
+            showStatus("error", "⚠️ UUID is required");
+            setTimeout(hideStatus, 3000);
 
-            return
+            return;
           }
 
           if (!segments.length) {
             showStatus(
-              'error',
-              '⚠️ Enter at least one valid numeric segment ID'
-            )
-            setTimeout(hideStatus, 3000)
+              "error",
+              "⚠️ Enter at least one valid numeric segment ID",
+            );
+            setTimeout(hideStatus, 3000);
 
-            return
+            return;
           }
 
-          resultsContainer.classList.remove('visible')
-          submitBtn.disabled = true
+          resultsContainer.classList.remove("visible");
+          submitBtn.disabled = true;
 
           try {
-            showStatus('loading', 'Initializing Smartico...')
+            showStatus("loading", "Initializing Smartico...");
 
-            window._smartico.init(labelKey, { brand_key: brandKey })
-            window._smartico_user_id = uuid
-            window._smartico_language = locale
-            window._smartico.identify?.(uuid)
+            window._smartico.init(labelKey, { brand_key: brandKey });
+            window._smartico_user_id = uuid;
+            window._smartico_language = locale;
+            window._smartico.identify?.(uuid);
 
-            showStatus('loading', 'Checking segments...')
+            showStatus("loading", "Checking segments...");
 
-            const api = await waitForSmarticoApi()
-            const result = await api.checkSegmentListMatch(segments)
+            const api = await waitForSmarticoApi();
+            const result = await api.checkSegmentListMatch(segments);
 
             const matchedIds = result
-              .filter(item => item.is_matching)
-              .map(item => item.segment_id)
+              .filter((item) => item.is_matching)
+              .map((item) => item.segment_id);
 
             const backendPayload = matchedIds.length
               ? JSON.stringify(matchedIds)
-              : 'null'
+              : "null";
 
             showStatus(
-              'success',
-              `✓ Success! Checked ${result.length} segment(s)`
-            )
-            displayResults(result, segments, backendPayload)
+              "success",
+              `✓ Success! Checked ${result.length} segment(s)`,
+            );
+            displayResults(result, segments, backendPayload);
           } catch (error) {
-            showStatus('error', `⚠️ Error: ${error.message || String(error)}`)
-            console.error('[Smartico Test Error]:', error)
+            showStatus("error", `⚠️ Error: ${error.message || String(error)}`);
+            console.error("[Smartico Test Error]:", error);
           } finally {
-            submitBtn.disabled = false
+            submitBtn.disabled = false;
           }
-        })
+        });
 
-        resetBtn.addEventListener('click', () => {
-          form.reset()
-          resultsContainer.classList.remove('visible')
-          hideStatus()
-          labelKeyInput.value = 'e3ce8b29-2a61-4074-b195-e9cc536e0052-4'
-          brandKeyInput.value = 'c4384c25'
-        })
+        resetBtn.addEventListener("click", () => {
+          form.reset();
+          resultsContainer.classList.remove("visible");
+          hideStatus();
+          labelKeyInput.value = "622e2ced-b84d-4b4d-be84-ad0ad893431f-4";
+          brandKeyInput.value = "33210353";
+        });
 
-        copyBtn.addEventListener('click', async () => {
-          const text = jsonOutput.textContent
+        copyBtn.addEventListener("click", async () => {
+          const text = jsonOutput.textContent;
 
           try {
-            await navigator.clipboard.writeText(text)
-            copyBtn.textContent = '✓ Copied!'
+            await navigator.clipboard.writeText(text);
+            copyBtn.textContent = "✓ Copied!";
             setTimeout(() => {
-              copyBtn.textContent = '📋 Copy JSON'
-            }, 2000)
+              copyBtn.textContent = "📋 Copy JSON";
+            }, 2000);
           } catch {
-            const textarea = document.createElement('textarea')
-            textarea.value = text
-            document.body.appendChild(textarea)
-            textarea.select()
-            document.execCommand('copy')
-            document.body.removeChild(textarea)
-            copyBtn.textContent = '✓ Copied!'
+            const textarea = document.createElement("textarea");
+            textarea.value = text;
+            document.body.appendChild(textarea);
+            textarea.select();
+            document.execCommand("copy");
+            document.body.removeChild(textarea);
+            copyBtn.textContent = "✓ Copied!";
             setTimeout(() => {
-              copyBtn.textContent = '📋 Copy JSON'
-            }, 2000)
+              copyBtn.textContent = "📋 Copy JSON";
+            }, 2000);
           }
-        })
-      })
+        });
+      });
     </script>
   </head>
   <body>
@@ -635,7 +635,10 @@
                   placeholder="e.g., d0df6f50-9c32-4c68-9ab2-4f7c9f3b6c91"
                   required
                 />
-                <div class="helper-text">Taken from <code>/api/v3/players/me</code>, <code>info.uuid</code> field</div>
+                <div class="helper-text">
+                  Taken from <code>/api/v3/players/me</code>,
+                  <code>info.uuid</code> field
+                </div>
               </div>
               <div class="form-group">
                 <label for="locale">Locale</label>
@@ -660,7 +663,10 @@
                 placeholder="Enter segment IDs separated by commas, e.g., 123, 456, 789"
                 required
               ></textarea>
-              <div class="helper-text">Taken from <code>/api/v3/banners</code>, <code>smartico_segment_id</code> field</div>
+              <div class="helper-text">
+                Taken from <code>/api/v3/banners</code>,
+                <code>smartico_segment_id</code> field
+              </div>
             </div>
 
             <div class="button-group">
